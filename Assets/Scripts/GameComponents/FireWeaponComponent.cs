@@ -14,7 +14,9 @@ public class FireWeaponComponent : MonoBehaviour
     string FireInputAxis = "Fire1";
 
     //Observer to handle reloading text in hud
-    public event Action<bool> OnReloadStateChanged;  
+    public event Action<string, int> OnWeaponChanged;
+    public event Action<bool> OnReloadStateChanged;
+    public event Action<int> OnFireWeapon; 
 
     void Awake()
     {
@@ -65,6 +67,7 @@ public class FireWeaponComponent : MonoBehaviour
     {
         RemoveBindedData();
         WeaponDefinition = fireWeaponDefinition;
+        OnWeaponChanged?.Invoke(WeaponDefinition.Name, WeaponDefinition.ClipSize);
         SetUpWeaponModules();
     }
 
@@ -77,6 +80,7 @@ public class FireWeaponComponent : MonoBehaviour
 
         ReloadWeaponModule ReloadModule = WeaponDefinition.AuxiliaryWeaponModule as ReloadWeaponModule;
         WeaponDefinition.PrimaryWeaponModule.OnModuleActivate += ReloadModule.RemoveBullet;
+        WeaponDefinition.PrimaryWeaponModule.OnModuleActivate += () => OnFireWeapon(ReloadModule.RemainingAmmo);
         ReloadModule.OnModuleActivate += OnAuxiliaryModuleActive;
         ReloadModule.OnModuleDeactivate += OnAuxiliaryModuleDeactivated;
     }
@@ -87,6 +91,7 @@ public class FireWeaponComponent : MonoBehaviour
 
         ReloadWeaponModule ReloadModule = WeaponDefinition.AuxiliaryWeaponModule as ReloadWeaponModule;
         WeaponDefinition.PrimaryWeaponModule.OnModuleActivate -= ReloadModule.RemoveBullet;
+        WeaponDefinition.PrimaryWeaponModule.OnModuleActivate -= () => OnFireWeapon(ReloadModule.RemainingAmmo);
         ReloadModule.OnModuleActivate -= OnAuxiliaryModuleActive;
         ReloadModule.OnModuleDeactivate -= OnAuxiliaryModuleDeactivated;
     }
@@ -99,5 +104,6 @@ public class FireWeaponComponent : MonoBehaviour
     private void OnAuxiliaryModuleDeactivated()
     {
         OnReloadStateChanged?.Invoke(false);
+
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Weapon Definition", menuName = "Weapon/Add Fire Weapon Definition")]
 public class FireWeaponDefinition : ScriptableObject
 {
+    [Tooltip("What is the name of the weapon")]
+    public string Name;
     [Tooltip("Which bullet shall be spawned by this weapon")]
     public GameObject AmmunitionPrefab;
     [Tooltip("Time between shoots")]

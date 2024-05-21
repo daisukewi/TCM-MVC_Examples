@@ -7,6 +7,12 @@ public class ReloadWeaponModule : WeaponModuleBase
     private int _remainingAmmo = 0;
     private float _lastActivationTime = 0;
     private bool bIsReloading = false;
+
+    public int RemainingAmmo
+    {
+        get { return _remainingAmmo; }
+    }
+
     public override void SetUpWeaponModule(FireWeaponDefinition weaponDefinition)
     {
         base.SetUpWeaponModule(weaponDefinition);
