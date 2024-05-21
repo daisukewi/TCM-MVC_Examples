@@ -16,7 +16,7 @@ public class ReloadTextController : MonoBehaviour
         }
     }
 
-    void SetReloadTextVisibility(bool bShowText)
+    void SetReloadTextVisibility(bool bShowText, int iMagazineSize)
     {
         Text.enabled = bShowText;
     }

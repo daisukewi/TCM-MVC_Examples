@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 197d700ce176e004d8c317c46f6df3fc, type: 3}
   m_Name: Gatling
   m_EditorClassIdentifier: 
+  Name: Gatling
   AmmunitionPrefab: {fileID: 3856228384228733671, guid: ac78eaddb86a2ed46ae95818b736b029, type: 3}
   FireCooldown: 0.07
   ReloadTime: 3

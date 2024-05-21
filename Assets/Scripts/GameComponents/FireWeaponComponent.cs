@@ -14,7 +14,9 @@ public class FireWeaponComponent : MonoBehaviour
     string FireInputAxis = "Fire1";
 
     //Observer to handle reloading text in hud
-    public event Action<bool> OnReloadStateChanged;
+    public event Action<string> OnWeaponChanged;
+    public event Action<bool, int> OnReloadStateChanged;
+    public event Action<int, int> OnFireWeapon;
 
     //Here we only define the vars that we need to control the component logic
     private float ElapsedFireCooldown = 0;
@@ -53,7 +55,7 @@ public class FireWeaponComponent : MonoBehaviour
             {
                 bIsReloading = true;
                 //Invoke Delegates
-                OnReloadStateChanged?.Invoke(bIsReloading);
+                OnReloadStateChanged?.Invoke(bIsReloading, 0);
             }
         }  
         else if(ElapsedReloadTime >= WeaponDefinition.ReloadTime)
@@ -76,8 +78,7 @@ public class FireWeaponComponent : MonoBehaviour
         bIsReloading = false;
         ElapsedReloadTime = 0;
         //Invoke Delegates
-        OnReloadStateChanged?.Invoke(bIsReloading);
-
+        OnReloadStateChanged?.Invoke(bIsReloading, WeaponDefinition.ClipSize);
     }
 
     void Shoot()
@@ -87,6 +88,8 @@ public class FireWeaponComponent : MonoBehaviour
         remainingBullets -= 1;
         //Reset shooting control vars
         ElapsedFireCooldown = 0;
+        //Invoke Delegates
+        OnFireWeapon?.Invoke(remainingBullets, WeaponDefinition.ClipSize);
     }
 
     void SetUpProjectile()
@@ -99,6 +102,7 @@ public class FireWeaponComponent : MonoBehaviour
     public void ChangeWeaponData(FireWeaponDefinition fireWeaponDefinition)
     {
         WeaponDefinition = fireWeaponDefinition;
+        OnWeaponChanged?.Invoke(WeaponDefinition.Name);
         ReloadWeapon();
     }
 }

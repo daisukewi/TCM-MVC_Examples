@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 197d700ce176e004d8c317c46f6df3fc, type: 3}
   m_Name: Revolver
   m_EditorClassIdentifier: 
+  Name: Revolver
   AmmunitionPrefab: {fileID: 3856228384228733671, guid: 76f81da63c486b74c93e50106c6548a7, type: 3}
   FireCooldown: 0.5
   ReloadTime: 3
