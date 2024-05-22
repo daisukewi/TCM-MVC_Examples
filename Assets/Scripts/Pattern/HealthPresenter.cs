@@ -71,7 +71,6 @@ public class HealthPresenter : MonoBehaviour
 
     void Update()
     {
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
-        healthUI.SetPositionAndRotation(screenPos, healthUI.rotation);
+        healthUI.SetPositionAndRotation(transform.position, healthUI.rotation);
     }
 }
